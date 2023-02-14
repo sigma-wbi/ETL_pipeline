@@ -1,0 +1,8 @@
+.env
+airflow.cfg
+airflow.db
+webserver_config.py
+/dags/__pycache__/**
+/dags/result.json.gz
+/logs/**
+airflow-webserver.pid
