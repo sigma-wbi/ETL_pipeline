@@ -24,8 +24,9 @@ default_args = {
 dag = DAG(
     'rds_airflow',
     default_args=default_args,
-    schedule_interval='0 0 * * *', # 하루 자정 마다
+    # schedule_interval='0 0 * * *', # 하루 자정 마다
     # schedule_interval='*/5 * * * *', # 5분마다
+    schedule_interval='*/2 * * * *', # 2분마다
     catchup=False
 )
 
@@ -49,7 +50,7 @@ url_dict ={"/api/common/user/" : 1,
 curd_dict ={"GET" : 1, "POST": 2, "PUT":3,"DELETE": 4}
     
 def extract_data_from_mysql(**kwargs):
-    mysql_hook = MySqlHook(mysql_conn_id='mysql_local')
+    mysql_hook = MySqlHook(mysql_conn_id='mysql_rds')
     execution_date = kwargs.get('execution_date') + timedelta(hours=9)# airflow에서 작업의 마지막 실행 날짜/ 9시간 더해줘야함
     execution_time = execution_date.strftime('%s') # epoch time으로 변경
     execution_time = int(execution_time)
@@ -88,14 +89,15 @@ def load_to_s3(**kwargs):
     s3 = boto3.resource('s3')
     bucket_name = 'cp2s3'
     current_time = datetime.now().strftime("%Y-%m-%dT%H-%M-%S") # 날짜별 새로운 로그데이터 파일
-    file_name = f'result_{current_time}.json.gz'
+    partition_key = datetime.now().strftime("%Y-%m-%d") # 파티션키 
+    file_name = f"{current_time}.json.gz"
     
     # 압축
     with gzip.open(file_name, 'wb') as f:
         f.write(json.dumps(result).encode('utf-8'))
 
-    # 압축파일 업로드
-    s3.Bucket(bucket_name).upload_file(file_name, file_name)
+    # 압축파일 업로드 + 데이터 파티셔닝
+    s3.Bucket(bucket_name).upload_file(file_name, f"{partition_key}/{file_name}")
 
     
 extract_data_task = PythonOperator(
