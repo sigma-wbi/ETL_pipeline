@@ -24,9 +24,9 @@ default_args = {
 dag = DAG(
     'rds_airflow',
     default_args=default_args,
-    # schedule_interval='0 0 * * *', # 하루 자정 마다
+    schedule_interval='0 0 * * *', # 하루 자정 마다
     # schedule_interval='*/5 * * * *', # 5분마다
-    schedule_interval='*/2 * * * *', # 2분마다
+    # schedule_interval='*/2 * * * *', # 2분마다
     catchup=False
 )
 
