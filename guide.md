@@ -8,11 +8,11 @@ export AIRFLOW_HOME=~/airflow
 
 # Install Airflow using the constraints file
 AIRFLOW_VERSION=2.5.1
-PYTHON_VERSION="$(python --version | cut -d " " -f 2 | cut -d "." -f 1-2)"
+PYTHON_VERSION="$(python3 --version | cut -d " " -f 2 | cut -d "." -f 1-2)"
 # For example: 3.7
 CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constraints-${AIRFLOW_VERSION}/constraints-${PYTHON_VERSION}.txt"
 # For example: https://raw.githubusercontent.com/apache/airflow/constraints-2.5.1/constraints-3.7.txt
-pip install "apache-airflow==${AIRFLOW_VERSION}" --constraint "${CONSTRAINT_URL}"
+pip3 install "apache-airflow==${AIRFLOW_VERSION}" --constraint "${CONSTRAINT_URL}"
 
 # The Standalone command will initialise the database, make a user,
 # and start all components for you.
@@ -27,10 +27,26 @@ Short Version
 ```
 export AIRFLOW_HOME=~/airflow
 AIRFLOW_VERSION=2.5.1
-PYTHON_VERSION="$(python --version | cut -d " " -f 2 | cut -d "." -f 1-2)"
+PYTHON_VERSION="$(python3 --version | cut -d " " -f 2 | cut -d "." -f 1-2)"
 CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constraints-${AIRFLOW_VERSION}/constraints-${PYTHON_VERSION}.txt"
-pip install "apache-airflow==${AIRFLOW_VERSION}" --constraint "${CONSTRAINT_URL}"
+pip3 install "apache-airflow==${AIRFLOW_VERSION}" --constraint "${CONSTRAINT_URL}"
 ```
+
+TroubleShooting
+- testresources 설치 오류
+    ```
+    sudo apt install python3-testresources
+    ```
+- pip 오류
+    ```
+    dpkg --list | grep ssl
+    dpkg --list | grep crypt | grep python3
+
+    sudo pip3 install cryptography
+    sudo pip install -U pyOpenSSL
+    sudo pip3 install -U pyOpenSSL
+    python3 -c 'import OpenSSL; print(OpenSSL.__version__)'
+    ```
 
 ## 설정 파일 수정
 airflow.cfg 파일 수정
