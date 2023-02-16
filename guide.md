@@ -1,104 +1,38 @@
-# Airflow 설치
+# Airflow with Docker Compose
 
-## 기본 설치
+## Requirements
+- Docker Engine
+- .env 파일
+
+## .env 파일 예시
 ```
-# Airflow needs a home. `~/airflow` is the default, but you can put it
-# somewhere else if you prefer (optional)
-export AIRFLOW_HOME=~/airflow
+# path ./.env
 
-# Install Airflow using the constraints file
-AIRFLOW_VERSION=2.5.1
-PYTHON_VERSION="$(python3 --version | cut -d " " -f 2 | cut -d "." -f 1-2)"
-# For example: 3.7
-CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constraints-${AIRFLOW_VERSION}/constraints-${PYTHON_VERSION}.txt"
-# For example: https://raw.githubusercontent.com/apache/airflow/constraints-2.5.1/constraints-3.7.txt
-pip3 install "apache-airflow==${AIRFLOW_VERSION}" --constraint "${CONSTRAINT_URL}"
+# Airflow Core
+AIRFLOW__CORE__EXECUTOR=LocalExecutor
+AIRFLOW__CORE__LOAD_EXAMPLES=False
+AIRFLOW_UID=0
 
-# The Standalone command will initialise the database, make a user,
-# and start all components for you.
-airflow standalone
+# Backend DB
+AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=mysql+mysqldb://<user>:<password>@<host>[:<port>]/<dbname>
+AIRFLOW__DATABASE__LOAD_DEFAULT_CONNECTIONS=False
 
-# Visit localhost:8080 in the browser and use the admin account details
-# shown on the terminal to login.
-# Enable the example_bash_operator dag in the home page
-```
-
-Short Version
-```
-export AIRFLOW_HOME=~/airflow
-AIRFLOW_VERSION=2.5.1
-PYTHON_VERSION="$(python3 --version | cut -d " " -f 2 | cut -d "." -f 1-2)"
-CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constraints-${AIRFLOW_VERSION}/constraints-${PYTHON_VERSION}.txt"
-pip3 install "apache-airflow==${AIRFLOW_VERSION}" --constraint "${CONSTRAINT_URL}"
+# Airflow Init
+_AIRFLOW_DB_UPGRADE=True
+_AIRFLOW_WWW_USER_CREATE=True
+_AIRFLOW_WWW_USER_USERNAME=airflowuser
+_AIRFLOW_WWW_USER_PASSWORD=airflowpass
 ```
 
-TroubleShooting
-- testresources 설치 오류
-    ```
-    sudo apt install python3-testresources
-    ```
-- pip 오류
-    ```
-    dpkg --list | grep ssl
-    dpkg --list | grep crypt | grep python3
-
-    sudo pip3 install cryptography
-    sudo pip install -U pyOpenSSL
-    sudo pip3 install -U pyOpenSSL
-    python3 -c 'import OpenSSL; print(OpenSSL.__version__)'
-    ```
-
-## 설정 파일 수정
-airflow.cfg 파일 수정
+## 실행 방법
 ```
-executor = LocalExecutor
-load_examples = False
+docker compose up -d
 ```
 
-
-## MySQL 연결
-MySQL 플러그인 설치
+## 접속 방법 (예시)
+http://127.0.0.1:8080/ 접속  
+username & password는 .env 파일에 작성한 값 사용
 ```
-pip install apache-airflow[mysql]
-```
-airflow.cfg 파일 수정
-```
-[database]
-mysql+mysqldb://<user>:<password>@<host>[:<port>]/<dbname>
-```
-
-## 추가 패키지 설치
-```
-pip install -r requirements.txt
-```
-
-## AWS S3 설정
-~/.aws 파일 수정
-```
-~/.aws/config
-
-[default]
-region=ap-northeast-2
-```
-```
-~/.aws/credentials
-
-[default]
-aws_access_key_id = <my_access_key>
-```
-
-## 최초 실행
-```
-airflow db init
-
-airflow users create \
-    --username admin \
-    --firstname Peter \
-    --lastname Parker \
-    --role Admin \
-    --email spiderman@superhero.org
-
-airflow webserver --port 8080
-
-airflow scheduler
+_AIRFLOW_WWW_USER_USERNAME=airflowuser
+_AIRFLOW_WWW_USER_PASSWORD=airflowpass
 ```
