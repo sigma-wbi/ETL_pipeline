@@ -6,3 +6,4 @@ webserver_config.py
 /dags/result**
 /logs/**
 airflow-webserver.pid
+.aws/
