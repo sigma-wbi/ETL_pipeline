@@ -10,6 +10,7 @@ import boto3
 import requests
 import random
 import gzip
+from dotenv import load_dotenv
 
 
 default_args = {
@@ -26,8 +27,8 @@ dag = DAG(
     'rds_airflow',
     default_args=default_args,
     # schedule_interval='0 0 * * *', # 하루 자정 마다
-    schedule_interval='*/5 * * * *', # 5분마다
-    # schedule_interval='*/2 * * * *', # 2분마다
+    # schedule_interval='*/5 * * * *', # 5분마다
+    schedule_interval='*/2 * * * *', # 2분마다
     catchup=False
 )
 
@@ -60,7 +61,7 @@ etl_contents = ['ETL stands for Extract, Transform, and Load', 'You can extract 
 airflow_contents = ['Airflow is an open-source platform to programmatically author, schedule, and monitor workflows', 'You can create a DAG using Python code', 'Some popular Airflow operators include BashOperator, PythonOperator, and PostgresOperator']
 
 def create_dummy_data(**kwargs):
-    
+    load_dotenv()
     username= os.environ.get('username')
     password= os.environ.get('password')
     
@@ -95,7 +96,9 @@ def extract_data_from_mysql(**kwargs):
     df = mysql_hook.get_pandas_df(sql)
     json_data = df.to_dict(orient='records')
     
+    # load_dotenv()
     key= os.environ.get('key')
+    print(key)
     fernet = Fernet(key)
 
     result = []
