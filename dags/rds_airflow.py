@@ -87,7 +87,12 @@ def create_dummy_data(**kwargs):
     
     
 def extract_data_from_mysql(**kwargs):
-    mysql_hook = MySqlHook(mysql_conn_id='mysql_rds')
+    load_dotenv()
+    key= os.environ.get('key')
+    fernet = Fernet(key)
+    mysql_id = os.environ.get('mysql_conn_id')
+    
+    mysql_hook = MySqlHook(mysql_conn_id=mysql_id)
     execution_date = kwargs.get('execution_date') + timedelta(hours=9)# airflow에서 작업의 마지막 실행 날짜/ 9시간 더해줘야함
     execution_time = execution_date.strftime('%s') # epoch time으로 변경
     execution_time = int(execution_time)
@@ -96,11 +101,14 @@ def extract_data_from_mysql(**kwargs):
     df = mysql_hook.get_pandas_df(sql)
     json_data = df.to_dict(orient='records')
     
+<<<<<<< Updated upstream
     # load_dotenv()
     key= os.environ.get('key')
     print(key)
     fernet = Fernet(key)
 
+=======
+>>>>>>> Stashed changes
     result = []
     for log in json_data:
         encrypted = log['data'].encode('utf8') # 토큰값때문에 인코딩해줘야함
@@ -123,12 +131,22 @@ def extract_data_from_mysql(**kwargs):
 
 def load_to_s3(**kwargs):
     result = kwargs['ti'].xcom_pull(task_ids='extract_data_task') #앞의 함수의 리턴값을 가져옴
+<<<<<<< Updated upstream
     aws_access = os.environ.get('aws_access_key_id')
     aws_secret = os.environ.get('aws_secret_access_key')
     # kwargs['ti']는 실행 중인 현재 작업의 TaskInstance 개체를 의미함 / 상태, 실행 날짜 및 기타 메타데이터를 포함하여 작업 인스턴스에 대한 정보가 있다.
     s3 = boto3.resource('s3', aws_access_key_id =aws_access, aws_secret_access_key =aws_secret)
     # kwargs['ti']는 실행 중인 현재 작업의 TaskInstance 개체를 의미함 / 상태, 실행 날짜 및 기타 메타데이터를 포함하여 작업 인스턴스에 대한 정보가 있다.
     bucket_name = 'cp2s3'
+=======
+    load_dotenv()
+    aws_access = os.environ.get('aws_access_key_id')
+    aws_secret = os.environ.get('aws_secret_access_key')
+    bucket_name = os.environ.get('bucket_name')
+    # kwargs['ti']는 실행 중인 현재 작업의 TaskInstance 개체를 의미함 / 상태, 실행 날짜 및 기타 메타데이터를 포함하여 작업 인스턴스에 대한 정보가 있다.
+    s3 = boto3.resource('s3', aws_access_key_id =aws_access, aws_secret_access_key =aws_secret)
+    # kwargs['ti']는 실행 중인 현재 작업의 TaskInstance 개체를 의미함 / 상태, 실행 날짜 및 기타 메타데이터를 포함하여 작업 인스턴스에 대한 정보가 있다.
+>>>>>>> Stashed changes
     current_time = datetime.now().strftime("%Y-%m-%dT%H-%M-%S") # 날짜별 새로운 로그데이터 파일
     partition_key = datetime.now().strftime("%Y-%m-%d") # 파티션키 
     partition_key2 = datetime.now().strftime("%H")
