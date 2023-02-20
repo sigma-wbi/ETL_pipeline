@@ -20,11 +20,12 @@ S3에 적재시 gz형식으로 한번 더 압축 및 날짜와 시간별로 파�
 ## 📚Stack
 
 ![badge](https://img.shields.io/badge/AmazonRDS-527FFF?style=flat-square&logo=AmazonRDS&logoColor=white)
-![badge](https://img.shields.io/badge/AmazonS3-527FFF?style=flat-square&logo=AmazonS3&logoColor=white)
-![badge](https://img.shields.io/badge/Airflow-527FFF?style=flat-square&logo=Airflow&logoColor=white)
+![badge](https://img.shields.io/badge/AmazonS3-009639?style=flat-square&logo=AmazonS3&logoColor=white)
+![badge](https://img.shields.io/badge/Airflow-FF9900?style=flat-square&logo=Airflow&logoColor=white)
 
 ## Installation
 > 우선적으로 docker가 필요합니다. Airflow는 리눅스 기반환경에서 구동하였습니다. 
+> 
 * 리눅스 환경은 EC2, 로컬환경, WSL등 원하는대로 구축 하시면됩니다.
 
 ### docker 설치 
@@ -74,10 +75,14 @@ $ docker compose up -d --build
 ## 추가내용
 해당 dag가 어떻게 돌아가는지 확인하고 싶다면 IP+8080포트로 접속하시면 됩니다.
 
-Airflow를 EC2안에서 활용한다면 메모리 용량에 서버가 불안정할 수 있습니다. 일반적인 경우 약 4GB의 메모리를 필요로 합니다.
+Airflow를 EC2안에서 활용한다면 메모리 용량에 서버가 불안정할 수 있습니다. 
+
+일반적인 경우 약 4GB의 메모리를 필요로 합니다.
+
 임시방편으로 사용하지 않는 저장소를 메모리로 변환하여 사용할 수 있습니다.
 
 아래는 t2.micro(1GB 메모리 제공)에서 적용한 코드입니다.
+
 * 단, 지정하는 블록크기는 인스턴스에서 사용 가능한 메모리보다 작아야합니다.
 
 ```python
