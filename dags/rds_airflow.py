@@ -26,9 +26,9 @@ default_args = {
 dag = DAG(
     'rds_airflow',
     default_args=default_args,
-    # schedule_interval='0 0 * * *', # 하루 자정 마다
+    schedule_interval='0 0 * * *', # 하루 자정 마다
     # schedule_interval='*/5 * * * *', # 5분마다
-    schedule_interval='*/2 * * * *', # 2분마다
+    # schedule_interval='*/2 * * * *', # 2분마다
     catchup=False
 )
 
@@ -101,14 +101,6 @@ def extract_data_from_mysql(**kwargs):
     df = mysql_hook.get_pandas_df(sql)
     json_data = df.to_dict(orient='records')
     
-<<<<<<< Updated upstream
-    # load_dotenv()
-    key= os.environ.get('key')
-    print(key)
-    fernet = Fernet(key)
-
-=======
->>>>>>> Stashed changes
     result = []
     for log in json_data:
         encrypted = log['data'].encode('utf8') # 토큰값때문에 인코딩해줘야함
@@ -131,14 +123,6 @@ def extract_data_from_mysql(**kwargs):
 
 def load_to_s3(**kwargs):
     result = kwargs['ti'].xcom_pull(task_ids='extract_data_task') #앞의 함수의 리턴값을 가져옴
-<<<<<<< Updated upstream
-    aws_access = os.environ.get('aws_access_key_id')
-    aws_secret = os.environ.get('aws_secret_access_key')
-    # kwargs['ti']는 실행 중인 현재 작업의 TaskInstance 개체를 의미함 / 상태, 실행 날짜 및 기타 메타데이터를 포함하여 작업 인스턴스에 대한 정보가 있다.
-    s3 = boto3.resource('s3', aws_access_key_id =aws_access, aws_secret_access_key =aws_secret)
-    # kwargs['ti']는 실행 중인 현재 작업의 TaskInstance 개체를 의미함 / 상태, 실행 날짜 및 기타 메타데이터를 포함하여 작업 인스턴스에 대한 정보가 있다.
-    bucket_name = 'cp2s3'
-=======
     load_dotenv()
     aws_access = os.environ.get('aws_access_key_id')
     aws_secret = os.environ.get('aws_secret_access_key')
@@ -146,7 +130,6 @@ def load_to_s3(**kwargs):
     # kwargs['ti']는 실행 중인 현재 작업의 TaskInstance 개체를 의미함 / 상태, 실행 날짜 및 기타 메타데이터를 포함하여 작업 인스턴스에 대한 정보가 있다.
     s3 = boto3.resource('s3', aws_access_key_id =aws_access, aws_secret_access_key =aws_secret)
     # kwargs['ti']는 실행 중인 현재 작업의 TaskInstance 개체를 의미함 / 상태, 실행 날짜 및 기타 메타데이터를 포함하여 작업 인스턴스에 대한 정보가 있다.
->>>>>>> Stashed changes
     current_time = datetime.now().strftime("%Y-%m-%dT%H-%M-%S") # 날짜별 새로운 로그데이터 파일
     partition_key = datetime.now().strftime("%Y-%m-%d") # 파티션키 
     partition_key2 = datetime.now().strftime("%H")
