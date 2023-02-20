@@ -78,9 +78,11 @@ password=[your api Admin password]
 ```python
 $ docker compose up -d --build 
 ```
+4. airflow 설정
+IP+8080포트로 접속 후 Admin 페이지에서 connections 클릭
 
 
-4. S3 접속 
+5. S3 접속 
 데이터 gz형식으로 날짜별로 파티셔닝 되는 것을 볼 수 있습니다.  
 
 
