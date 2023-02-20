@@ -80,7 +80,7 @@ password=[your api Admin password]
 
 3. 확장자 .yml 이 있는 디렉토리로 들어가 해당 명령어를 실행합니다.  
 ```python
-$ docker compose up -d --build 
+$ docker compose up -d
 ```
 
 4. airflow 설정
@@ -101,7 +101,7 @@ IP+8080포트로 접속 후 Admin 페이지에서 connections 클릭 후 add a n
 
 
 ## 추가내용
-해당 dag가 어떻게 돌아가는지 확인하고 싶다면 IP+8080포트로 접속하시면 됩니다.
+해당 dag가 어떻게 돌아가는지 확인하고 싶다면 IP+80포트로 접속하시면 됩니다.
 
 Airflow를 EC2안에서 활용한다면 메모리 용량에 서버가 불안정할 수 있습니다. 
 
