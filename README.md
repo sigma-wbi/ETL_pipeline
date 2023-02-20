@@ -68,6 +68,9 @@ key=[Fernet key]
 aws_access_key_id = [S3 access key]
 aws_secret_access_key = [S3 secret access key]
 
+bucket_name=[your s3 bucket name]
+mysql_connet_id=[your RDS name]
+
 # 아래는 dummy data 를 생성하기 위한 정보입니다. 
 uesrname=[your api Admin id]
 password=[your api Admin password]
