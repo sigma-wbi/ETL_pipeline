@@ -1,7 +1,7 @@
 # Airflow를 사용한 ETL PipeLine
 
 ## 배포
-Airflow webserber :
+Airflow webserver :
 
 
 ## 프로젝트 소개
