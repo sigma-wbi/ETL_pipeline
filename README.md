@@ -78,11 +78,21 @@ password=[your api Admin password]
 ```python
 $ docker compose up -d --build 
 ```
+
 4. airflow 설정
-IP+8080포트로 접속 후 Admin 페이지에서 connections 클릭
+IP+8080포트로 접속 후 Admin 페이지에서 connections 클릭 후 add a new record 클릭
 
+* RDS DB 설정 
+아래와 같이 입력 후 저장
+![image](https://user-images.githubusercontent.com/109950265/219989632-f68ee40f-00a0-489c-bda5-7a4cb58d1176.png)
 
-5. S3 접속 
+* S3 설정 
+아래와 같이 입력 후 저장
+![image](https://user-images.githubusercontent.com/109950265/219989581-88ffeacf-322e-4219-8b04-4f07cfa0dc20.png)
+
+5. dag 다시 실행
+
+6. S3 접속 
 데이터 gz형식으로 날짜별로 파티셔닝 되는 것을 볼 수 있습니다.  
 
 
