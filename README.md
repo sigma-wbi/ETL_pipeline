@@ -1,8 +1,5 @@
 # Airflow를 사용한 ETL PipeLine
 
-## 배포
-Airflow webserver :
-
 
 ## 프로젝트 소개
 Airflow, RDS, EC2, S3를 사용하여 ETL PipeLine 구축 및 자동화
