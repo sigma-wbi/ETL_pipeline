@@ -63,6 +63,7 @@ _AIRFLOW_DB_UPGRADE=True
 _AIRFLOW_WWW_USER_CREATE=True
 _AIRFLOW_WWW_USER_USERNAME=airflow
 
+# REST API에서 암호화 할 때 사용했던 key를 업로드
 key=[Fernet key]
 
 aws_access_key_id = [S3 access key]
