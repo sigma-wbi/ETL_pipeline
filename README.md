@@ -21,7 +21,7 @@ S3에 적재시 gz형식으로 한번 더 압축 및 날짜와 시간별로 파�
 
 ![badge](https://img.shields.io/badge/AmazonRDS-527FFF?style=flat-square&logo=AmazonRDS&logoColor=white)
 ![badge](https://img.shields.io/badge/AmazonS3-009639?style=flat-square&logo=AmazonS3&logoColor=white)
-![badge](https://img.shields.io/badge/Airflow-FF9900?style=flat-square&logo=Airflow&logoColor=white)
+![badge](https://img.shields.io/badge/Airflow-FF9900?style=flat-square&logo=apache-airflow&logoColor=white)
 
 ## Installation
 > 우선적으로 docker가 필요합니다. Airflow는 리눅스 기반환경에서 구동하였습니다. 
