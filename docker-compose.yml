@@ -12,7 +12,7 @@ x-common:
     - ./logs:/opt/airflow/logs
     # - ./plugins:/opt/airflow/plugins
     # - /var/run/docker.sock:/var/run/docker.sock
-    - ./.aws:/home/airflow/.aws
+    # - ./.aws:/home/airflow/.aws
 
 x-depends-on:
   &depends-on
@@ -51,7 +51,7 @@ services:
     restart: always
     command: webserver
     ports:
-      - "8080:8080"
+      - "80:80"
     healthcheck:
       test: ["CMD", "curl", "--fail", "http://localhost:8080/health"]
       interval: 30s

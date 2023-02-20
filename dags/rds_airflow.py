@@ -93,7 +93,7 @@ def extract_data_from_mysql(**kwargs):
     mysql_id = os.environ.get('mysql_conn_id')
     
     mysql_hook = MySqlHook(mysql_conn_id=mysql_id)
-    execution_date = kwargs.get('execution_date') + timedelta(hours=9)# airflow에서 작업의 마지막 실행 날짜/ 9시간 더해줘야함
+    execution_date = kwargs.get('execution_date')
     execution_time = execution_date.strftime('%s') # epoch time으로 변경
     execution_time = int(execution_time)
     
