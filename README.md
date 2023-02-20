@@ -42,7 +42,7 @@ $ git clone https://github.com/cp2-2team/cp2_ETL_pipeline.git
 ```
 
 
-2. 해당 디렉토리안에 .env파일을 작성합니다. 내용은 아래와 같습니다. [] 안은 수정해주세요  
+2. 해당 디렉토리안에 .env파일을 작성합니다. 내용은 아래와 같습니다. [ ] 안은 수정해주세요  
 ```python
 # Airflow Core
 # AIRFLOW__CORE__FERNET_KEY=[FERNET_KEY]
