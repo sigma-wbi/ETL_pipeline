@@ -8,13 +8,13 @@ Airflow, RDS, EC2, S3를 사용하여 ETL PipeLine 구축 및 자동화
 
 ## ETL 상세 내용
 
-> Extract 
+* Extract 
 Dummy data를 RDS에 저장하고 이 데이터를 기반으로 생성된 Log data를 가져옴
 
-> Transform 
+* Transform 
 Log data의 길이 및 용량을 줄이기 위해 필요없는 문자 제거 및 딕셔너리 형식 사용
 
-> Load
+* Load
 S3에 적재시 gz형식으로 한번 더 압축 및 날짜와 시간별로 파티셔닝 후 저장
 
 ## 📚Stack
@@ -25,7 +25,7 @@ S3에 적재시 gz형식으로 한번 더 압축 및 날짜와 시간별로 파�
 
 ## Installation
 > 우선적으로 docker가 필요합니다. Airflow는 리눅스 기반환경에서 구동하였습니다. 
-> 
+
 * 리눅스 환경은 EC2, 로컬환경, WSL등 원하는대로 구축 하시면됩니다.
 
 ### docker 설치 
