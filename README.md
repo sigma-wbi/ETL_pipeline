@@ -4,6 +4,8 @@
 ## 프로젝트 소개
 Airflow, RDS, EC2, S3를 사용하여 ETL PipeLine 구축 및 자동화
 
+![image](https://user-images.githubusercontent.com/109950265/221753888-f9b47e1d-f3fe-4b10-aa3c-4790297c6af0.png)
+
 
 ## ETL 상세 내용
 
