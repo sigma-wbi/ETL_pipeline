@@ -138,4 +138,4 @@ $ sudo vi /etc/fstab
 ```
 
 ## Report
-https://github.com/sigma-wbi/cp2_ETL_pipeline/tree/main/report
+https://github.com/sigma-wbi/ETL_pipeline/tree/main/report
